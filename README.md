@@ -48,11 +48,14 @@ Tech Stack
 
 Frontend:
 Next.js: For server-side rendering and static site generation.
+
 Tailwind CSS: For rapid and responsive UI development.
 
 Backend:
 Express.js: Lightweight and scalable backend framework.
+
 MongoDB: NoSQL database for data management.
+
 JWT: For secure user authentication.
 
 **🛡️ License**
