@@ -58,10 +58,14 @@ MongoDB: NoSQL database for data management.
 
 JWT: For secure user authentication.
 
+
 **🛡️ License**
+
 This project is licensed under the MIT License.
 
+
 **📧 Contact**
+
 For questions or feedback, reach out via:
 
 Author: Moogie3
