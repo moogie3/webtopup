@@ -75,5 +75,5 @@ This project is licensed under the MIT License.
 
 For questions or feedback, reach out via:
 
-Author: Moogie3
+Author: moogie3
 Email: jefrydwijaya3@gmail.com
