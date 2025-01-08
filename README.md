@@ -31,24 +31,25 @@ Database: MongoDB (NoSQL database for fast and flexible data storage).
 **📊 Usage**
 
 User Features
+
 1. Browse Vouchers
 Explore various vouchers categorized by type (gaming, streaming, utility, etc.).
 
 2. Purchase Vouchers
 Add vouchers to the cart and complete the purchase via the checkout page.
 
-3.Top-Up Feature
+3. Top-Up Feature
 Enter account details to redeem purchased vouchers.
 
 4. Order History
 Track all previous transactions with details of voucher codes and amounts.
 
-5.Admin Features
+5. Admin Features
 
-6.Manage Vouchers
+6. Manage Vouchers
 Add, update, or delete voucher options.
 
-7.View Orders
+7. View Orders
 Monitor user orders and manage pending transactions.
 
 
