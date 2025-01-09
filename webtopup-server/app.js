@@ -3,9 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const methodOverride = require('method-override');
+const session = require('express-session');
+const flash = require('connect-flash');
 
-var dashboardRouter = require('./app/dashboard/router');
-var categoryRouter = require('./app/category/router');
+const dashboardRouter = require('./app/dashboard/router');
+const categoryRouter = require('./app/category/router');
+const nominalRouter = require('./app/nominal/router');
 
 var app = express();
 
@@ -13,6 +17,14 @@ var app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {}
+}))
+app.use(flash());
+app.use(methodOverride('_method'));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -20,6 +32,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/adminlte', express.static(path.join(__dirname, '/node_modules/admin-lte/')));
 
+app.use('/nominal', nominalRouter);
 app.use('/category', categoryRouter);
 app.use('/', dashboardRouter);
 
