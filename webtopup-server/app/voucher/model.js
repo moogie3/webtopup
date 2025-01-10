@@ -7,21 +7,21 @@ let voucherSchema = mongoose.Schema({
     },
     status: {
         type: String,
-        enum:['Y','N'],
+        enum: ['Y', 'N'],
         default: 'Y'
     },
-    thumbnail :{
-        type:String
+    thumbnail: {
+        type: String
     },
-    category :{
+    category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category'
     },
-    nominals :[{
+    nominals: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Nominal'
     }],
-    user :{
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }
