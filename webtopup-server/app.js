@@ -10,6 +10,7 @@ const flash = require('connect-flash');
 const dashboardRouter = require('./app/dashboard/router');
 const categoryRouter = require('./app/category/router');
 const nominalRouter = require('./app/nominal/router');
+const voucherRouter = require('./app/voucher/router');
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/adminlte', express.static(path.join(__dirname, '/node_modules/admin-lte/')));
 
+app.use('/voucher', voucherRouter);
 app.use('/nominal', nominalRouter);
 app.use('/category', categoryRouter);
 app.use('/', dashboardRouter);
