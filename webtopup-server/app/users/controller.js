@@ -1,3 +1,6 @@
+const User = require('./model')
+const bcrypt = require('bcryptjs')
+
 module.exports = {
     viewSignin: async (req, res) => {
         try {
@@ -12,7 +15,31 @@ module.exports = {
         } catch (err) {
             req.flash('alertMessage', `${err.message}`)
             req.flash('alertStatus', 'danger')
-            req.redirect('/payment')
+            res.redirect('/')
+        }
+    },
+
+    actionSignin: async (req, res) => {
+        try {
+            const { email, password } = req.body
+            const check = await User.findOne({ email, password })
+            if (user) {
+                if (user.status === 'Y') {
+                    const checkPassword = await brcypt
+                } else {
+                    req.flash('alertMessage', `Mohon maaf status anda belum aktif`)
+                    req.flash('alertStatus', 'danger')
+                    res.redirect('/')
+                }
+            } else {
+                req.flash('alertMessage', `Email yang anda input salah`)
+                req.flash('alertStatus', 'danger')
+                res.redirect('/')
+            }
+        } catch (err) {
+            req.flash('alertMessage', `${err.message}`)
+            req.flash('alertStatus', 'danger')
+            res.redirect('/')
         }
     }
 }
