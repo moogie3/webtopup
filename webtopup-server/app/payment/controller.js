@@ -13,19 +13,25 @@ module.exports = {
 
             res.render('admin/payment/view_payment', {
                 payment,
-                alert
+                alert,
+                name: req.session.user.name,
+                title: 'Halaman Pembayaran'
             })
         } catch (err) {
             req.flash('alertMessage', `${err.message}`)
             req.flash('alertStatus', 'danger')
-            req.redirect('/payment')
+            res.redirect('/payment')
         }
     },
 
     viewCreate: async (req, res) => {
         try {
             const banks = await Bank.find()
-            res.render('admin/payment/create', { banks })
+            res.render('admin/payment/create', {
+                banks,
+                name: req.session.user.name,
+                title: 'Halaman pembayarab'
+            })
         } catch (err) {
             req.flash('alertMessage', `${err.message}`)
             req.flash('alertStatus', 'danger')
@@ -61,7 +67,9 @@ module.exports = {
 
             res.render('admin/payment/edit', {
                 payment,
-                banks
+                banks,
+                name: req.session.user.name,
+                title: 'Halaman edit pembayaran'
             })
         } catch (err) {
             req.flash('alertMessage', `${err.message}`)
