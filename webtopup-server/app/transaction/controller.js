@@ -8,6 +8,8 @@ module.exports = {
 
             const alert = { message: alertMessage, status: alertStatus }
             const transaction = await Transaction.find()
+                .populate('historyVoucherTopup')
+                .populate('player')
 
             res.render('admin/transaction/view_transaction', {
                 transaction,

@@ -45,7 +45,7 @@
                 </span>
             <% } %>
           </td>
-          <td><%= transaction[i].name %></td>
+          <td><%= transaction[i]?.player?.name ?? '-' %></td>
           <td>
             <% if(transaction[i].status === 'pending') { %>
             <form action="/transaction/status/<%= transaction[i]._id %>?status=failed&_method=PUT" method="POST" style="display: inline-block;">
