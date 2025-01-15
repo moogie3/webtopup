@@ -19,7 +19,7 @@ export default function Navbar() {
                             <Menu title="Rewards" />
                             <Menu title="Discover" />
                             <Menu title="Global Rank" />
-                            <Auth isLogin={true} />
+                            <Auth />
                         </ul>
                     </div>
                 </div>
