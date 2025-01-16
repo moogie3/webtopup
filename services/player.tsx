@@ -21,7 +21,7 @@ export async function getDetailVoucher(id: string) {
     return axiosResponse.data;
 }
 
-export async function getGameCategory(){
+export async function getGameCategory() {
     const URL = 'players/category';
 
     const response = await axios.get(`${ROOT_API}/${API_VERSION}/${URL}`);
