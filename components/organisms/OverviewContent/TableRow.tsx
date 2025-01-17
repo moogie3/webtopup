@@ -1,11 +1,12 @@
 import cx from "classnames";
+import { NumericFormat } from "react-number-format";
 
 interface TableRowProps {
     title: string;
     categorie: string;
     item: string;
     price: number;
-    status: 'Pending' | 'Success' | 'Failed';
+    status: string;
     image: string;
 }
 
@@ -13,9 +14,9 @@ export default function TableRow(props: TableRowProps) {
     const { title, categorie, item, price, status, image } = props;
     const statusClass = cx({
         'float-start icon-status': true,
-        'pending': status === "Pending",
-        'success': status === "Success",
-        'failed': status === "Failed"
+        'pending': status === "pending",
+        'success': status === "success",
+        'failed': status === "failed"
     })
     return (
         <tr className="align-middle">
@@ -31,7 +32,14 @@ export default function TableRow(props: TableRowProps) {
                 <p className="fw-medium color-palette-1 m-0">{item}</p>
             </td>
             <td>
-                <p className="fw-medium text-start color-palette-1 m-0">{price}</p>
+                <p className="fw-medium text-start color-palette-1 m-0">
+                    <NumericFormat
+                                        value={price}
+                                        prefix="Rp. "
+                                        displayType="text"
+                                        thousandSeparator="."
+                                        decimalSeparator="," 
+                                        /></p>
             </td>
             <td>
                 <div>

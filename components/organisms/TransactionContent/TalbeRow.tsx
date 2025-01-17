@@ -1,23 +1,24 @@
 import Link from 'next/link';
 import cx from 'classnames';
+import { NumericFormat } from 'react-number-format';
 
 interface TableRowProps {
     image: string;
     title: string;
     categorie: string;
-    item: number;
+    item: string;
     price: number;
-    status: 'Pending' | 'Success' | 'Failed'
-
+    status: string;
+    id :string;
 }
 
 export default function TableRow(props: TableRowProps) {
     const { image, title, categorie, item, price, status } = props;
-    const statusClass = cx({ 'float-start icon-status pending': true, 'pending': status === 'Pending', 'success': status === "Success", 'failed': status === "Failed" })
+    const statusClass = cx({ 'float-start icon-status pending': true, 'pending': status === 'pending', 'success': status === "success", 'failed': status === "failed" })
     return (
         <tr data-category="pending" className="align-middle">
             <th scope="row">
-                <img className="float-start me-3 mb-lg-0 mb-3" src={`/img/${image}.png`}
+                <img className="float-start me-3 mb-lg-0 mb-3" src={image}
                     width="80" height="60" alt="" />
                 <div className="game-title-header">
                     <p className="game-title fw-medium text-start color-palette-1 m-0">{title}</p>
@@ -28,7 +29,15 @@ export default function TableRow(props: TableRowProps) {
                 <p className="fw-medium color-palette-1 m-0">{item}</p>
             </td>
             <td>
-                <p className="fw-medium color-palette-1 m-0">{price}</p>
+                <p className="fw-medium color-palette-1 m-0">
+                    <NumericFormat
+                                        value={price}
+                                        prefix="Rp. "
+                                        displayType="text"
+                                        thousandSeparator="."
+                                        decimalSeparator="," 
+                                        />
+                                        </p>
             </td>
             <td>
                 <div>
@@ -38,7 +47,7 @@ export default function TableRow(props: TableRowProps) {
                 </div>
             </td>
             <td>
-                <Link href="/member/transaction/detail" legacyBehavior>
+                <Link href={`/member/transaction/${id}`} legacyBehavior>
                     <a className="btn btn-status rounded-pill text-sm">Details</a></Link>
             </td>
         </tr >
