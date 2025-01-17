@@ -43,7 +43,7 @@ export default function Auth() {
                     </a>
 
                     <ul className="dropdown-menu border-0" aria-labelledby="dropdownMenuLink">
-                        <li><Link href="/member" legacyBehavior><a className="dropdown-item text-lg color-palette-2" href="#">My Profile</a></Link></li>
+                        <li><Link href="/member" legacyBehavior><a className="dropdown-item text-lg color-palette-2" >My Profile</a></Link></li>
                         <li><Link href="/" legacyBehavior><a className="dropdown-item text-lg color-palette-2" href="#">Wallet</a></Link></li>
                         <li><Link href="/member/edit-profile" legacyBehavior><a className="dropdown-item text-lg color-palette-2" href="#">Account Settings</a></Link>
                         </li>

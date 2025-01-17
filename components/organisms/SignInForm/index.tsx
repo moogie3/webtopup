@@ -1,11 +1,10 @@
 import { setLogin } from "@/services/auth";
 import Link from "next/link";
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
-import jwt_decode from 'jwt-decode';
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignInForm() {
     const [email, setEmail] = useState('');
@@ -52,7 +51,6 @@ export default function SignInForm() {
                 <Link href="/sign-up"><a className="btn btn-sign-up fw-medium text-lg color-palette-1 rounded-pill">Sign Up</a>
                 </Link>
             </div>
-            <ToastContainer />
         </>
     )
 }
