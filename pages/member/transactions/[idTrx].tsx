@@ -1,12 +1,17 @@
 import TransactionDetailContent from "@/components/organisms/TransactionDetailContent";
-import { JWTPayloadTypes, UserTypes } from "@/services/data-types";
+import { HistoryTransactionTypes, JWTPayloadTypes, UserTypes } from "@/services/data-types";
 import { getTransactionDetail } from "@/services/member";
 import { jwtDecode } from "jwt-decode";
 
-export default function TransactionDetail({transactionDetail}) {
+interface TransactionDetailProps {
+    transactionDetail: HistoryTransactionTypes;
+}
+
+export default function TransactionDetail(props: TransactionDetailProps) {
+    const { transactionDetail } = props;
     return (
         <section className="transactions-detail overflow-auto">
-            <TransactionDetailContent />
+            <TransactionDetailContent data={transactionDetail} />
         </section>
     )
 }
@@ -17,13 +22,13 @@ interface GetServerSideProps {
             token: string;
         }
     },
-    params :{
-        idTrx:string;
+    params: {
+        idTrx: string;
     }
 }
 
 export async function getServerSideProps({ req, params }: GetServerSideProps) {
-    const {idTrx} = params;
+    const { idTrx } = params;
     const { token } = req.cookies;
     if (!token) {
         return {

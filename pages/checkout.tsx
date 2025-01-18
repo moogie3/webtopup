@@ -1,12 +1,7 @@
 import CheckoutConfirmation from "@/components/organisms/CheckoutConfirmation";
 import CheckoutDetail from "@/components/organisms/CheckoutDetail";
 import CheckoutItem from "@/components/organisms/CheckoutItem";
-import { JWTPayloadTypes, UserTypes } from "@/services/data-types";
-import { jwtDecode } from "jwt-decode";
-import { GetServerSideProps } from "next";
-import { cookies } from "next/headers";
 import Image from "next/image";
-import { buffer } from "stream/consumers";
 
 export default function Checkout() {
     return (
@@ -49,14 +44,9 @@ export async function getServerSideProps({ req }: GetServerSideProps) {
         };
     }
 
-    const jwtToken = Buffer.from(token, 'base64').toString('ascii');
-    const payload: JWTPayloadTypes = jwtDecode(jwtToken);
-    const userFromPayLoad: UserTypes = payload.player;
-    const IMG = process.env.NEXT_PUBLIC_IMG;
-    userFromPayLoad.avatar = `${IMG}/${userFromPayLoad.avatar}`;
     return {
         props: {
-            user: userFromPayLoad,
+            user: {},
         }
     }
 }

@@ -15,7 +15,7 @@ export async function getMemberOverview() {
 
 export async function getMemberTransactions(valueParams: string) {
     let params = '';
-    if(valueParams === 'all'){
+    if (valueParams === 'all') {
         params = '';
     } else {
         params = `?status=${valueParams}`
@@ -30,12 +30,23 @@ export async function getMemberTransactions(valueParams: string) {
 }
 
 
-export async function getTransactionDetail(id: string, token : string) {
+export async function getTransactionDetail(id: string, token: string) {
     const url = `${ROOT_API}/${API_VERSION}/players/history/${id}/detail`;
 
     return await callAPI({
         url,
         method: 'GET',
         serverToken: token,
+    });
+}
+
+export async function updateProfile(data: FormData, id: string) {
+    const url = `${ROOT_API}/${API_VERSION}/players/profile/${id}`;
+
+    return await callAPI({
+        url,
+        method: 'PUT',
+        data,
+        token: true
     });
 }

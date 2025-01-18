@@ -10,7 +10,7 @@ interface MenuItemProps {
     onClick: () => void;
 }
 export default function MenuItem(props: Partial<MenuItemProps>) {
-    const { title, icon, active, href, onClick} = props;
+    const { title, icon, active, href = '/', onClick } = props;
     const classItem = cx({
         item: true,
         'mb-30': true,
@@ -24,10 +24,10 @@ export default function MenuItem(props: Partial<MenuItemProps>) {
             <p className="item-title m-0">
                 {onClick ? (
                     <a className="text-lg text-decoration-none">{title}</a>
-                ): (
-                <Link href={href} legacyBehavior>
-                    <a className="text-lg text-decoration-none">{title}</a>
-                </Link>
+                ) : (
+                    <Link href={href} legacyBehavior>
+                        <a className="text-lg text-decoration-none">{title}</a>
+                    </Link>
                 )}
             </p>
         </div>

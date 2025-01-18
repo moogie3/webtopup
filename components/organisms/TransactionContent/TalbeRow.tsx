@@ -9,11 +9,11 @@ interface TableRowProps {
     item: string;
     price: number;
     status: string;
-    id :string;
+    id: string;
 }
 
 export default function TableRow(props: TableRowProps) {
-    const { image, title, categorie, item, price, status } = props;
+    const { image, title, categorie, item, price, status, id } = props;
     const statusClass = cx({ 'float-start icon-status pending': true, 'pending': status === 'pending', 'success': status === "success", 'failed': status === "failed" })
     return (
         <tr data-category="pending" className="align-middle">
@@ -31,13 +31,13 @@ export default function TableRow(props: TableRowProps) {
             <td>
                 <p className="fw-medium color-palette-1 m-0">
                     <NumericFormat
-                                        value={price}
-                                        prefix="Rp. "
-                                        displayType="text"
-                                        thousandSeparator="."
-                                        decimalSeparator="," 
-                                        />
-                                        </p>
+                        value={price}
+                        prefix="Rp. "
+                        displayType="text"
+                        thousandSeparator="."
+                        decimalSeparator=","
+                    />
+                </p>
             </td>
             <td>
                 <div>

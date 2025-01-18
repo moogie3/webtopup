@@ -2,7 +2,9 @@ import React from 'react'
 
 export interface InputProps {
     label: string;
-
+    value?: string;
+    disabled?: boolean; // ✅ Ensure `disabled` prop exists
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 export default function Input(props: InputProps) {
     const { label, ...nativeProps } = props;

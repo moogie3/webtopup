@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { JWTPayloadTypes, UserTypes } from '@/services/data-types';
 import { useRouter } from 'next/router';
 
@@ -56,8 +56,7 @@ export default function Auth() {
     return (
         <li className="nav-item my-auto">
             <Link href="/sign-in" legacyBehavior>
-                <a className="btn btn-sign-in d-flex justify-content-center ms-lg-2 rounded-pill"
-                    href="./src/sign-in.html" role="button">Sign
+                <a className="btn btn-sign-in d-flex justify-content-center ms-lg-2 rounded-pill" role="button">Sign
                     In</a>
             </Link>
 

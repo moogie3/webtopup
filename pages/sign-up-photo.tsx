@@ -4,12 +4,13 @@ import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import { CategoryTypes } from '@/services/data-types';
 
 export default function SignUpPhoto() {
     const [categories, setCategories] = useState([]);
     const [favorite, setFavorite] = useState('');
-    const [image, setImage] = useState('');
-    const [imagePreview, setImagePreview] = useState(null);
+    const [image, setImage] = useState<any>('');
+    const [imagePreview, setImagePreview] = useState<any>(null);
     const [localForm, setLocalForm] = useState({
         name: '',
         email: '',
@@ -52,7 +53,6 @@ export default function SignUpPhoto() {
         } else {
             toast.success('Register Berhasil');
             router.push('/sign-up-success');
-            localStorage.removeItem('user-form');
         }
     }
     return (
@@ -68,10 +68,10 @@ export default function SignUpPhoto() {
                                     </label>
                                     <input id="avatar" type="file" name="avatar" accept="image/png, image/jpeg"
                                         onChange={(event) => {
-                                            console.log(event.target.files);
                                             const img = event.target.files?.[0];
+                                            if (!img) return;
                                             setImagePreview(URL.createObjectURL(img));
-                                            return setImage(img);
+                                            setImage(img);
                                         }}
                                     />
                                 </div>
@@ -83,7 +83,7 @@ export default function SignUpPhoto() {
                                     Game</label>
                                 <select id="category" name="category" className="form-select d-block w-100 rounded-pill text-lg"
                                     aria-label="Favorite Game" value={favorite} onChange={(event) => setFavorite(event.target.value)}>
-                                    {categories.map(category => {
+                                    {categories.map((category: CategoryTypes) => {
                                         return <option key={category._id} value={category._id} selected>{category.name}</option>
                                     })}
                                 </select>

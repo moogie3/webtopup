@@ -11,22 +11,21 @@ export default function TransactionContent() {
     const [transactions, setTransactions] = useState([]);
     const [tab, setTab] = useState('all')
 
-    const getMemberTransactionAPI = useCallback(async(value) => {
+    const getMemberTransactionAPI = useCallback(async (value: string) => {
         const response = await getMemberTransactions(value);
-                if (response.error) {
-                    toast.error(response.message);
-                } else {
-                    console.log('data: ',response);
-                    setTotal(response.data.total);
-                    setTransactions(response.data.data);
-                }
-    },[])
+        if (response.error) {
+            toast.error(response.message);
+        } else {
+            setTotal(response.data.total);
+            setTransactions(response.data.data);
+        }
+    }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         getMemberTransactionAPI('all');
-    },[])
+    }, [])
 
-    const onTabClick = (value) => {
+    const onTabClick = (value: string) => {
         setTab(value);
         getMemberTransactionAPI(value);
     }
@@ -39,22 +38,22 @@ export default function TransactionContent() {
                 <div className="mb-30">
                     <p className="text-lg color-palette-2 mb-12">You’ve spent</p>
                     <h3 className="text-5xl fw-medium color-palette-1">
-                                            <NumericFormat
-                                            value={total}
-                                            prefix="Rp. "
-                                            displayType="text"
-                                            thousandSeparator="."
-                                            decimalSeparator="," 
-                                            />
-                                            </h3>
+                        <NumericFormat
+                            value={total}
+                            prefix="Rp. "
+                            displayType="text"
+                            thousandSeparator="."
+                            decimalSeparator=","
+                        />
+                    </h3>
                 </div>
                 <div className="row mt-30 mb-20">
                     <div className="col-lg-12 col-12 main-content">
                         <div id="list_status_title">
-                            <ButtonTab onClick={() => onTabClick('all')}title="All Trx" active={tab === 'all'} />
-                            <ButtonTab onClick={() => onTabClick('success')}title="Success" active={tab === 'success'}/>
-                            <ButtonTab onClick={() => onTabClick('pending')}title="Pending" active={tab === 'pending'} />
-                            <ButtonTab onClick={() => onTabClick('failed')}title="Failed" active={tab === 'failed'} />
+                            <ButtonTab onClick={() => onTabClick('all')} title="All Trx" active={tab === 'all'} />
+                            <ButtonTab onClick={() => onTabClick('success')} title="Success" active={tab === 'success'} />
+                            <ButtonTab onClick={() => onTabClick('pending')} title="Pending" active={tab === 'pending'} />
+                            <ButtonTab onClick={() => onTabClick('failed')} title="Failed" active={tab === 'failed'} />
                         </div>
                     </div>
                 </div>
@@ -74,15 +73,15 @@ export default function TransactionContent() {
                             <tbody id="list_status_item">
                                 {transactions.map((transaction: HistoryTransactionTypes) => {
                                     return (
-                                        <TableRow 
-                                        key={transaction._id}
-                                        image={`${IMG}/${transaction.historyVoucherTopUp.thumbnail}`} 
-                                        title={transaction.historyVoucherTopUp.gameName}
-                                        categorie={transaction.historyVoucherTopUp.category} 
-                                        item={`${transaction.historyVoucherTopUp.coinQuantity} ${transaction.historyVoucherTopUp.coinName}`} 
-                                        price={transaction.value}
-                                        status={transaction.status}
-                                        id={transaction._id}
+                                        <TableRow
+                                            key={transaction._id}
+                                            image={`${IMG}/${transaction.historyVoucherTopUp.thumbnail}`}
+                                            title={transaction.historyVoucherTopUp.gameName}
+                                            categorie={transaction.historyVoucherTopUp.category}
+                                            item={`${transaction.historyVoucherTopUp.coinQuantity} ${transaction.historyVoucherTopUp.coinName}`}
+                                            price={transaction.value}
+                                            status={transaction.status}
+                                            id={transaction._id}
                                         />
                                     )
                                 })}

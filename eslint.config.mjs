@@ -1,34 +1,64 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "@typescript-eslint/eslint-plugin";
-import pluginReact from "eslint-plugin-react";
-
+import globals from 'globals';
+import pluginJs from '@eslint/js';
+import tseslint from '@typescript-eslint/eslint-plugin';
+import pluginReact from 'eslint-plugin-react';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {
-    files: ["**/*.{ts,tsx}"],
+    files: ['**/*.{ts,tsx}'],
     languageOptions: {
-      globals: globals.browser,
+      parser: '@typescript-eslint/parser',
+      globals: {
+        ...globals.browser,
+        ...globals.node, // Add other globals if needed
+      },
+      parserOptions: {
+        ecmaVersion: 2021,
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
     },
-    ...tseslint.configs.recommended,
+    plugins: {
+      '@typescript-eslint': pluginTs,
+    },
+    extends: [
+      'plugin:@typescript-eslint/recommended',
+    ],
+    rules: {
+      ...tseslint.configs.recommended.rules,
+    },
   },
   {
-    files: ["**/*.{js,jsx,mjs}"],
+    files: ['**/*.{js,jsx,mjs}'],
     languageOptions: {
       globals: globals.browser,
+      parserOptions: {
+        ecmaVersion: 2021,
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
     },
-    ...pluginJs.configs.recommended,
+    plugins: {
+      react: pluginReact,
+    },
+    extends: [
+      'plugin:react/recommended',
+    ],
+    rules: {
+      ...pluginJs.configs.recommended.rules,
+    },
   },
   {
     rules: {
-      "no-console": "warn",
-      "react/jsx-uses-react": "error",
-      "jsx-a11y/anchor-is-valid": "off",
-      "react/jsx-props-no-spreading": "off"
+      'no-console': 'warn',
+      'jsx-a11y/anchor-is-valid': 'off',
+      'react/jsx-props-no-spreading': 'off',
+      'react/react-in-jsx-scope': 'off',
     },
-  }
+  },
 ];
-
-
-

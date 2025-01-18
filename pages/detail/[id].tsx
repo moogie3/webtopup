@@ -1,38 +1,17 @@
 import TopUpForm from "@/components/organisms/TopUpForm";
 import TopUpItem from "@/components/organisms/TopUpItem";
-import Navbar from "../../components/organisms/Navbar";
+import { GameItemTypes, NominalsTypes, PaymentTypes } from "@/services/data-types";
+import { getDetailVoucher, getFeaturedGame } from "@/services/player";
 import Footer from "../../components/organisms/Footer";
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
-import { getDetailVoucher } from "@/services/player";
+import Navbar from "../../components/organisms/Navbar";
 
-export default function Detail() {
-    const { query, isReady } = useRouter();
-    const [dataItem, setDataItem] = useState({
-        name: '',
-        thumbnail: '',
-        category: {
-            name: ''
-        },
-    });
+interface DetailProps {
+    dataItem: GameItemTypes;
+    nominals: NominalsTypes[];
+    payments: PaymentTypes[];
+}
 
-    const [nominals, setNominals] = useState([]);
-    const [payments, setPayments] = useState([]);
-
-    const getVoucherDetailAPI = useCallback(async (id) => {
-        const data = await getDetailVoucher(id);
-        console.log('data: ', data);
-        setDataItem(data.detail);
-        localStorage.setItem('data-item', JSON.stringify(data.detail));
-        setNominals(data.detail.nominals);
-        setPayments(data.payment);
-    }, []);
-
-    useEffect(() => {
-        if (isReady) {
-            getVoucherDetailAPI(query.id);
-        }
-    }, [isReady]);
+export default function Detail({ dataItem, nominals, payments }: DetailProps) {
     return (
         <>
             <Navbar />
@@ -57,4 +36,56 @@ export default function Detail() {
             <Footer />
         </>
     )
+}
+
+export async function getStaticPaths() {
+    const data = await getFeaturedGame();
+
+    if (!data || data.length === 0) {
+        return {
+            paths: [],
+            fallback: 'blocking', // Or you can use 'false', depending on your use case
+        };
+    }
+
+    const paths = data.map((item: GameItemTypes) => ({
+        params: {
+            id: item._id,
+        },
+    }));
+
+    return {
+        paths,
+        fallback: 'blocking', // Use 'blocking' if you want Next.js to wait for data before rendering the page
+    };
+}
+
+interface GetStaticProps {
+    params: {
+        id: string;
+    }
+}
+
+export async function getStaticProps({ params }: GetStaticProps) {
+    const { id } = params;
+    try {
+        const data = await getDetailVoucher(id);
+
+        if (!data || !data.detail) {
+            return { notFound: true };
+        }
+
+        return {
+            props: {
+                dataItem: data.detail,
+                nominals: data.nominals,
+                payments: data.payment,
+            },
+        };
+    } catch (error) {
+        console.error(error);
+        return {
+            notFound: true,
+        };
+    }
 }
