@@ -1,5 +1,3 @@
-**[CURRENTLY ON PROGRESS]**
-
 _**Online Voucher Top-Up Website**_
 
 A Modern Website for Voucher Purchases and Top-Ups.
